@@ -1,13 +1,13 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import BootstrapTable from "react-bootstrap-table-next";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, {
   Search,
-} from "react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit";
-import paginationFactory from "react-bootstrap-table2-paginator";
-import moment from "moment";
-import { getAllStudents } from "../../../actions/student_actions";
-import Student from "../add/student";
+} from 'react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit';
+import paginationFactory from 'react-bootstrap-table2-paginator';
+import moment from 'moment';
+import { getAllStudents } from '../../../actions/student_actions';
+import Student from '../add/student';
 
 const { SearchBar } = Search;
 
@@ -20,7 +20,7 @@ class StudentView extends Component {
   }
 
   componentDidMount() {
-    if (localStorage.getItem("token") !== null) {
+    if (localStorage.getItem('token') !== null) {
       this.props.getAllStudents();
     }
   }
@@ -33,36 +33,36 @@ class StudentView extends Component {
 
   tableColumData = [
     {
-      dataField: "_id",
-      text: "Student ID",
+      dataField: '_id',
+      text: 'Student ID',
       formatter: (cell) => this.setIdFormatter(cell),
       headerStyle: () => {
-        return { width: "150px" };
+        return { width: '150px' };
       },
     },
     {
-      dataField: "firstname",
-      text: "Name",
+      dataField: 'firstname',
+      text: 'Name',
       formatter: (cell, row) => this.setNameFormatter(cell, row),
     },
     {
-      dataField: "lastname",
-      text: "Last Name",
+      dataField: 'lastname',
+      text: 'Last Name',
       formatter: (cell, row) => this.setNameFormatter(cell, row),
     },
     {
-      dataField: "email",
-      text: "Email",
+      dataField: 'email',
+      text: 'Email',
       formatter: (cell) => this.setFieldFormatter(cell),
     },
     {
-      dataField: "phonenumber",
-      text: "Phone number",
+      dataField: 'phonenumber',
+      text: 'Phone number',
       formatter: (cell) => this.setFieldFormatter(cell),
     },
     {
-      dataField: "username",
-      text: "Username",
+      dataField: 'username',
+      text: 'Username',
       formatter: (cell) => this.setFieldFormatter(cell),
     },
   ];
@@ -98,7 +98,7 @@ class StudentView extends Component {
   setDateFormatter(cell) {
     return (
       <p className="badge user-badge rounded-pill bg-custom-light text-dark">
-        {moment(cell).format("lll")}
+        {moment(cell).format('lll')}
       </p>
     );
   }
