@@ -13,7 +13,6 @@ function PageRoutes() {
         <Router>
           <section>
             <Switch>
-              <Route path="/student" component={Student} exact />
               <Route path="/student/view" component={StudentView} exact />
               <Route path="/examination/:id" component={Examination} />
               <Route path="/examination" component={ExaminationPage} />

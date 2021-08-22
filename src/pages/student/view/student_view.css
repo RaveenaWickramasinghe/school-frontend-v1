@@ -7,7 +7,6 @@
 .header-class {
   background-color: #88bdbc;
   font-weight: 900;
-  font-size: 16px;
 }
 
 .student-info {
@@ -27,6 +26,12 @@ p {
 }
 
 .student-title {
-  font-size: 28px;
   font-weight: 600;
+}
+
+.user-img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 50%;
 }

@@ -1,78 +1,77 @@
-import React, { Component } from "react";
-import { NotificationManager } from "react-notifications";
-import firebase from "../../../firebase.config";
-import Select from "react-select";
-import Progress from "../../../components/progress";
-import DatePicker from "react-datepicker";
-import { createStudent } from "../../../actions/student_actions";
-import { connect } from "react-redux";
-import "./student.css";
+import React, { Component } from 'react';
+import { NotificationManager } from 'react-notifications';
+import firebase from '../../../firebase.config';
+import Select from 'react-select';
+import Progress from '../../../components/progress';
+import DatePicker from 'react-datepicker';
+import { createStudent } from '../../../actions/student_actions';
+import { connect } from 'react-redux';
+import './student.css';
 
 let formData = {};
 
 const $ = window.$;
 
 const provinces = [
-  { value: "Central", label: "Central" },
-  { value: "Eastern", label: "Eastern" },
-  { value: "North Central", label: "North Central" },
-  { value: "Northern", label: "Northern" },
-  { value: "North Western", label: "North Western" },
-  { value: "Sabaragamuwa", label: "Sabaragamuwa" },
-  { value: "Southern", label: "Southern" },
-  { value: "Uva", label: "Uva" },
-  { value: "Western", label: "Western" },
+  { value: 'Central', label: 'Central' },
+  { value: 'Eastern', label: 'Eastern' },
+  { value: 'North Central', label: 'North Central' },
+  { value: 'Northern', label: 'Northern' },
+  { value: 'North Western', label: 'North Western' },
+  { value: 'Sabaragamuwa', label: 'Sabaragamuwa' },
+  { value: 'Southern', label: 'Southern' },
+  { value: 'Uva', label: 'Uva' },
+  { value: 'Western', label: 'Western' },
 ];
 
 const gradeoptions = [
-  { value: "GRADE 1", label: "GRADE 1" },
-  { value: "GRADE 2", label: "GRADE 2" },
-  { value: "GRADE 3", label: "GRADE 3" },
-  { value: "GRADE 4", label: "GRADE 4" },
-  { value: "GRADE 5", label: "GRADE 5" },
-  { value: "GRADE 6", label: "GRADE 6" },
-  { value: "GRADE 7", label: "GRADE 7" },
-  { value: "GRADE 8", label: "GRADE 8" },
-  { value: "GRADE 9", label: "GRADE 9" },
-  { value: "GRADE 10", label: "GRADE 10" },
-  { value: "GRADE 11", label: "GRADE 11" },
-  { value: "GRADE 12", label: "GRADE 12" },
-  { value: "GRADE 13", label: "GRADE 13" },
+  { value: 'GRADE 1', label: 'GRADE 1' },
+  { value: 'GRADE 2', label: 'GRADE 2' },
+  { value: 'GRADE 3', label: 'GRADE 3' },
+  { value: 'GRADE 4', label: 'GRADE 4' },
+  { value: 'GRADE 5', label: 'GRADE 5' },
+  { value: 'GRADE 6', label: 'GRADE 6' },
+  { value: 'GRADE 7', label: 'GRADE 7' },
+  { value: 'GRADE 8', label: 'GRADE 8' },
+  { value: 'GRADE 9', label: 'GRADE 9' },
+  { value: 'GRADE 10', label: 'GRADE 10' },
+  { value: 'GRADE 11', label: 'GRADE 11' },
+  { value: 'GRADE 12', label: 'GRADE 12' },
+  { value: 'GRADE 13', label: 'GRADE 13' },
 ];
 class Student extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      fname: "",
-      lname: "",
-      dob: "",
-      address1: "",
-      address2: "",
-      city: "",
-      province: "",
-      grade: 0,
-      profileImage: null,
-      uploadPercentage: 0,
-      achievements: "",
-      pname: "",
-      email: "",
-      phone: "",
-      username: "",
-      password: "",
-      role: "ROLE_ADMIN",
-    };
-
     this.onChange = this.onChange.bind(this);
     this.setUploadPercentage = this.setUploadPercentage.bind(this);
     this.setImageUrl = this.setImageUrl.bind(this);
     this.setImage = this.setImage.bind(this);
     this.onSelectProvince = this.onSelectProvince.bind(this);
+    this.state = {
+      fname: '',
+      lname: '',
+      dob: '',
+      address1: '',
+      address2: '',
+      city: '',
+      province: '',
+      grade: 0,
+      profileImage: null,
+      uploadPercentage: 0,
+      achievements: '',
+      pname: '',
+      email: '',
+      phone: '',
+      username: '',
+      password: '',
+      role: 'ROLE_ADMIN',
+    };
   }
 
   componentWillReceiveProps = (nextProps) => {
     if (this.props.createStudent !== nextProps.createStudent) {
       this.setState({ isLoading: false }, () => {
-        NotificationManager.success("Student created successfull!");
+        NotificationManager.success('Student created successfull!');
       });
     }
 
@@ -113,14 +112,14 @@ class Student extends Component {
 
   setImageUrl = ({ imageurl }) => {
     this.setState({ imageurl: imageurl }, () => {
-      console.log("image url", this.state.imageurl);
+      console.log('image url', this.state.imageurl);
     });
   };
 
   uploadImage = (e) => {
     e.preventDefault();
     if (this.state.profileImage !== null) {
-      let folderName = "Profile-Pictures";
+      let folderName = 'Profile-Pictures';
       let file = this.state.profileImage;
       let upload = firebase
         .storage()
@@ -128,7 +127,7 @@ class Student extends Component {
         .put(file);
 
       upload.on(
-        "state_changed",
+        'state_changed',
         (snapshot) => {
           const progress = Math.round(
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100
@@ -141,7 +140,7 @@ class Student extends Component {
         () => {
           upload.snapshot.ref.getDownloadURL().then((url) => {
             this.setImageUrl({ imageurl: url });
-            NotificationManager.success("Image upload success");
+            NotificationManager.success('Image upload success');
           });
         }
       );
@@ -149,7 +148,7 @@ class Student extends Component {
   };
 
   closeModal() {
-    $("#create-student").modal("toggle");
+    $('#create-student').modal('toggle');
     this.setState(this.state);
   }
 
@@ -179,12 +178,12 @@ class Student extends Component {
           password: this.state.password,
         };
 
-        console.log("DATA TO SEND", studentData);
+        console.log('DATA TO SEND', studentData);
         this.props.createStudent(studentData);
-        NotificationManager.success("Student Profile is Successfully created!");
+        NotificationManager.success('Student Profile is Successfully created!');
       } else {
         this.setState({ formNotValid: true }, () => {
-          NotificationManager.warning("Please check the input fields");
+          NotificationManager.warning('Please check the input fields');
         });
       }
     }
@@ -266,7 +265,7 @@ class Student extends Component {
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div className="modal-dialog ">
+        <div className="modal-dialog modal-lg">
           <div className="modal-content">
             <div className="modal-header">
               <h2 className="modal-title">Create Student Account</h2>
@@ -279,7 +278,7 @@ class Student extends Component {
             </div>
 
             <div className="modal-body">
-              <div className="row m-0 mb-3 col">
+              <div className="row m-0 mb-3">
                 <label htmlFor="fname" className="form-label p-0">
                   First Name
                 </label>
@@ -298,7 +297,7 @@ class Student extends Component {
                 ) : null}
               </div>
 
-              <div className="row m-0 mb-3 col">
+              <div className="row m-0 mb-3">
                 <label htmlFor="lname" className="form-label p-0">
                   Last Name
                 </label>
